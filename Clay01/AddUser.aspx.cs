@@ -48,7 +48,7 @@ namespace Clay01
                         FullName = name.Text,
                         Username = username.Text,
                         Password = helper.Encrypt(password.Text.Trim()),
-                        PropertyID = propertyList.SelectedIndex
+                        PropertyID = Convert.ToInt32(propertyList.SelectedValue)
                     };
                     context.Users.Add(user);
                     context.SaveChanges();

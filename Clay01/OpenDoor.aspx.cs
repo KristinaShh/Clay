@@ -15,7 +15,7 @@ namespace Clay01
             using (ClayEntities context = new ClayEntities())
             {
                 var door = (from d in context.Doors
-                                select new { d.DoorID, d.Description }).ToList();
+                                select new {d.DoorID, d.Description }).ToList();
                 GridView1.DataSource = door;
                 GridView1.DataBind();
             }
@@ -36,10 +36,13 @@ namespace Clay01
                 if (e.CommandName == "OpenDoor")
                 {
                     // Retrieve the row index stored in the CommandArgument property.
-                    int doorId = Convert.ToInt32(e.CommandArgument);
+                    int rowIndex = Convert.ToInt32(e.CommandArgument);
 
-                    // Retrieve the row that contains the button from the Rows collection.
-                    GridViewRow row = GridView1.Rows[doorId];
+                    //Reference the GridView Row.
+                    GridViewRow row = GridView1.Rows[rowIndex];
+
+                    //Fetch value of Door ID
+                    int doorId = Convert.ToInt32((row.FindControl("txtID") as TextBox).Text);
 
                     // Code to access the door
                     ClayEntities db = new ClayEntities();

@@ -13,10 +13,16 @@
         OnClick="btn_signout_Click" />
 
     <!--GridView with all doors-->
-    <asp:GridView ID="GridView1" runat="server" 
+    <asp:GridView ID="GridView1" runat="server"
         OnRowCommand="GridView1_RowCommand" Width="50%"
         CssClass="table table-hover table-striped">
         <Columns>
+            <asp:TemplateField HeaderText="ID" ItemStyle-Width="150" Visible="false">
+                <ItemTemplate>
+                    <asp:TextBox ID="txtID" runat="server" Text='<%# Eval("DoorID") %>' />
+                    <asp:TextBox ID="txtDoor" runat="server" Text='<%# Eval("Description") %>' />
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:ButtonField ButtonType="Button"
                 CommandName="OpenDoor"
                 HeaderText="Open Door"

@@ -66,7 +66,7 @@ namespace Clay01
                 var door = new Door()
                 {
                     Description = doorDescription.Text,
-                    PropertyID = propertyList.SelectedIndex
+                    PropertyID = Convert.ToInt32(propertyList.SelectedValue)
                 };
                 context.Doors.Add(door);
                 context.SaveChanges();

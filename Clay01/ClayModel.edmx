@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ClayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Door">
+          <Key>
+            <PropertyRef Name="DoorID" />
+          </Key>
+          <Property Name="DoorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PropertyID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HistoryLogs">
+          <Key>
+            <PropertyRef Name="IdHistoryLogs" />
+          </Key>
+          <Property Name="IdHistoryLogs" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="DoorID" Type="int" Nullable="false" />
+          <Property Name="Time" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="PropertyID" />
+          </Key>
+          <Property Name="PropertyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PropertyName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NumberOfDoors" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PropertyID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Door__PropertyID__31EC6D26">
+          <End Role="Property" Type="Self.Property" Multiplicity="1" />
+          <End Role="Door" Type="Self.Door" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="PropertyID" />
+            </Principal>
+            <Dependent Role="Door">
+              <PropertyRef Name="PropertyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HistoryLo__DoorI__38996AB5">
+          <End Role="Door" Type="Self.Door" Multiplicity="1" />
+          <End Role="HistoryLogs" Type="Self.HistoryLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Door">
+              <PropertyRef Name="DoorID" />
+            </Principal>
+            <Dependent Role="HistoryLogs">
+              <PropertyRef Name="DoorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HistoryLo__UserI__37A5467C">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="HistoryLogs" Type="Self.HistoryLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="HistoryLogs">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__PropertyID__2F10007B">
+          <End Role="Property" Type="Self.Property" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="PropertyID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="PropertyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="CP_GetHistoryLogs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="ClayModelStoreContainer">
+          <EntitySet Name="Door" EntityType="Self.Door" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistoryLogs" EntityType="Self.HistoryLogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Door__PropertyID__31EC6D26" Association="Self.FK__Door__PropertyID__31EC6D26">
+            <End Role="Property" EntitySet="Property" />
+            <End Role="Door" EntitySet="Door" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HistoryLo__DoorI__38996AB5" Association="Self.FK__HistoryLo__DoorI__38996AB5">
+            <End Role="Door" EntitySet="Door" />
+            <End Role="HistoryLogs" EntitySet="HistoryLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HistoryLo__UserI__37A5467C" Association="Self.FK__HistoryLo__UserI__37A5467C">
+            <End Role="User" EntitySet="User" />
+            <End Role="HistoryLogs" EntitySet="HistoryLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__PropertyID__2F10007B" Association="Self.FK__User__PropertyID__2F10007B">
+            <End Role="Property" EntitySet="Property" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClayModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Door">
+          <Key>
+            <PropertyRef Name="DoorID" />
+          </Key>
+          <Property Name="DoorID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PropertyID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Property" Relationship="Self.FK__Table__PropertyI__25869641" FromRole="Door" ToRole="Property" />
+          <NavigationProperty Name="HistoryLogs" Relationship="ClayModel.FK__HistoryLo__DoorI__38996AB5" FromRole="Door" ToRole="HistoryLog" />
+        </EntityType>
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="PropertyID" />
+          </Key>
+          <Property Name="PropertyID" Type="Int32" Nullable="false" />
+          <Property Name="PropertyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Doors" Relationship="Self.FK__Table__PropertyI__25869641" FromRole="Property" ToRole="Door" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__User__PropertyID__286302EC" FromRole="Property" ToRole="User" />
+          <Property Name="NumberOfDoors" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PropertyID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Property" Relationship="Self.FK__User__PropertyID__286302EC" FromRole="User" ToRole="Property" />
+          <NavigationProperty Name="HistoryLogs" Relationship="ClayModel.FK__HistoryLo__UserI__37A5467C" FromRole="User" ToRole="HistoryLog" />
+        </EntityType>
+        <Association Name="FK__Table__PropertyI__25869641">
+          <End Role="Property" Type="Self.Property" Multiplicity="1" />
+          <End Role="Door" Type="Self.Door" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="PropertyID" />
+            </Principal>
+            <Dependent Role="Door">
+              <PropertyRef Name="PropertyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__PropertyID__286302EC">
+          <End Role="Property" Type="Self.Property" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="PropertyID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="PropertyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClayEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Doors" EntityType="Self.Door" />
+          <EntitySet Name="Properties" EntityType="Self.Property" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Table__PropertyI__25869641" Association="Self.FK__Table__PropertyI__25869641">
+            <End Role="Property" EntitySet="Properties" />
+            <End Role="Door" EntitySet="Doors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__PropertyID__286302EC" Association="Self.FK__User__PropertyID__286302EC">
+            <End Role="Property" EntitySet="Properties" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="HistoryLogs" EntityType="ClayModel.HistoryLog" />
+          <AssociationSet Name="FK__HistoryLo__DoorI__38996AB5" Association="ClayModel.FK__HistoryLo__DoorI__38996AB5">
+            <End Role="Door" EntitySet="Doors" />
+            <End Role="HistoryLog" EntitySet="HistoryLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HistoryLo__UserI__37A5467C" Association="ClayModel.FK__HistoryLo__UserI__37A5467C">
+            <End Role="User" EntitySet="Users" />
+            <End Role="HistoryLog" EntitySet="HistoryLogs" />
+          </AssociationSet>
+          <FunctionImport Name="CP_GetHistoryLogs" ReturnType="Collection(ClayModel.CP_GetHistoryLogs_Result)" />
+          <FunctionImport Name="CP_GetDoorsByUserId" ReturnType="Collection(ClayModel.CP_GetDoorsByUserId_Result)">
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="HistoryLog">
+          <Key>
+            <PropertyRef Name="IdHistoryLogs" />
+          </Key>
+          <Property Name="IdHistoryLogs" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="DoorID" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Door" Relationship="ClayModel.FK__HistoryLo__DoorI__38996AB5" FromRole="HistoryLog" ToRole="Door" />
+          <NavigationProperty Name="User" Relationship="ClayModel.FK__HistoryLo__UserI__37A5467C" FromRole="HistoryLog" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__HistoryLo__DoorI__38996AB5">
+          <End Type="ClayModel.Door" Role="Door" Multiplicity="1" />
+          <End Type="ClayModel.HistoryLog" Role="HistoryLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Door">
+              <PropertyRef Name="DoorID" />
+            </Principal>
+            <Dependent Role="HistoryLog">
+              <PropertyRef Name="DoorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HistoryLo__UserI__37A5467C">
+          <End Type="ClayModel.User" Role="User" Multiplicity="1" />
+          <End Type="ClayModel.HistoryLog" Role="HistoryLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="HistoryLog">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="CP_GetHistoryLogs_Result">
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Time" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="CP_GetDoorsByUserId_Result">
+          <Property Type="Int32" Name="DoorID" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="PropertyID" Nullable="false" />
+          <Property Type="Int32" Name="PropertyID1" Nullable="false" />
+          <Property Type="String" Name="PropertyName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="NumberOfDoors" Nullable="false" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="PropertyID2" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ClayModelStoreContainer" CdmEntityContainer="ClayEntities">
+          <EntitySetMapping Name="Doors">
+            <EntityTypeMapping TypeName="ClayModel.Door">
+              <MappingFragment StoreEntitySet="Door">
+                <ScalarProperty Name="DoorID" ColumnName="DoorID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Properties">
+            <EntityTypeMapping TypeName="ClayModel.Property">
+              <MappingFragment StoreEntitySet="Property">
+                <ScalarProperty Name="NumberOfDoors" ColumnName="NumberOfDoors" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+                <ScalarProperty Name="PropertyName" ColumnName="PropertyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ClayModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistoryLogs">
+            <EntityTypeMapping TypeName="ClayModel.HistoryLog">
+              <MappingFragment StoreEntitySet="HistoryLogs">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="DoorID" ColumnName="DoorID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="IdHistoryLogs" ColumnName="IdHistoryLogs" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CP_GetHistoryLogs" FunctionName="ClayModel.Store.CP_GetHistoryLogs">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ClayModel.CP_GetHistoryLogs_Result">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

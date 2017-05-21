@@ -67,6 +67,7 @@ namespace Clay01
         }
         #endregion
 
+        #region Button Sign Out
         protected void btn_signin_Click(object sender, EventArgs e)
         {
             try
@@ -105,5 +106,6 @@ namespace Clay01
                 throw;
             }
         }
+        #endregion
     }
 }

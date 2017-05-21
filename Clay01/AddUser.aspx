@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" EnableEventValidation="false" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="AddUser.aspx.cs" Inherits="Clay01.AddUser" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <!-- LEFT PANEL TO ADD USER-->
     <div class="main-login main-center col-lg-6">
         <h3>Add New User</h3>
         <form class="form-horizontal">
@@ -120,9 +121,9 @@
             </div>
         </form>
     </div>
+    <!-- RIGHT PANEL TO SIGN IN-->
     <div class="main-login main-center col-lg-6">
         <h3>Sign in to open a door</h3>
-
         <div class="form-group">
             <div>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5"
@@ -183,5 +184,4 @@
         </div>
 
     </div>
-
 </asp:Content>
